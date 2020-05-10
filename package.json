@@ -1,0 +1,29 @@
+{
+  "name": "custom-protractor-framework",
+  "version": "1.0.0",
+  "description": "\"# custom-protractor-framework\"",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "lint": "tslint -p tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/udhayak4251/custom-protractor-framework.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/udhayak4251/custom-protractor-framework/issues"
+  },
+  "homepage": "https://github.com/udhayak4251/custom-protractor-framework#readme",
+  "files": [
+    "lib"
+  ],
+  "devDependencies": {
+    "typescript": "^3.8.3",
+    "protractor": "^5.4.0"
+  }
+}
