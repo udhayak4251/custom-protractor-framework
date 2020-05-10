@@ -19,7 +19,7 @@ export class BrowserActions {
     * @return
     * promise.Promise<void>
     */
-    public waitForElementToBeVisible(elementToWait: ElementFinder):Promise<void> {
+    public waitForElementToBeVisible(elementToWait: ElementFinder) {
         return browser.wait(
             protractor.ExpectedConditions.visibilityOf(elementToWait),
             this.globalWait,
@@ -34,7 +34,7 @@ export class BrowserActions {
     * @return
     * promise.Promise<void>
     */
-    public waitForElementToBeClickable(elementToWait: ElementFinder):Promise<void> {
+    public waitForElementToBeClickable(elementToWait: ElementFinder) {
         return browser.wait(
             protractor.ExpectedConditions.elementToBeClickable(elementToWait),
             this.globalWait,
@@ -49,7 +49,7 @@ export class BrowserActions {
     * @return
     * promise.Promise<void>
     */
-    public navigateTo(url: string):Promise<void> {
+    public navigateTo(url: string) {
         return browser.get(url);
     }
 
@@ -60,7 +60,7 @@ export class BrowserActions {
      * @return
      * promise.Promise<void>
      */
-    public scrollToElement(element: ElementFinder):Promise<void> {
+    public scrollToElement(element: ElementFinder) {
         return this.waitForElementToBeVisible(element).then(() => {
             browser.executeScript('arguments[0].scrollIntoView();', element);
         });
@@ -76,7 +76,7 @@ export class BrowserActions {
      * promise.Promise<void>
      *
      */
-    public selectDropdownByValue(select: ElementFinder, options: ElementArrayFinder, value: String):Promise<void> {
+    public selectDropdownByValue(select: ElementFinder, options: ElementArrayFinder, value: String) {
         return this.waitForElementToBeClickable(select).then(() => {
             select.click().then(() => {
                 this.waitForElementToBeClickable(options.get(1)).then(() => {
@@ -102,12 +102,7 @@ export class BrowserActions {
      * @return
      * promise.Promise<void>
      */
-    public selectDropdownByAttributeValue(
-        select: ElementFinder,
-        options: ElementArrayFinder,
-        attribute: string,
-        value: String
-    ):Promise<void> {
+    public selectDropdownByAttributeValue(select: ElementFinder, options: ElementArrayFinder, attribute: string, value: String) {
         return this.waitForElementToBeClickable(select).then(() => {
             select.click().then(() => {
                 this.waitForElementToBeClickable(options.get(1)).then(() => {
