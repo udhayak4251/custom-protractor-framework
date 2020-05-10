@@ -1,6 +1,5 @@
-import { browser, ElementFinder, ElementArrayFinder } from 'protractor';
+import { browser, ElementFinder, ElementArrayFinder, ExpectedConditions, promise } from 'protractor';
 import { Logger } from './logger';
-import { protractor } from 'protractor/built/ptor';
 
 export class BrowserActions {
 
@@ -21,7 +20,7 @@ export class BrowserActions {
     */
     public waitForElementToBeVisible(elementToWait: ElementFinder) {
         return browser.wait(
-            protractor.ExpectedConditions.visibilityOf(elementToWait),
+            ExpectedConditions.visibilityOf(elementToWait),
             this.globalWait,
             `${this.globalWait} ${this.waitMessageVisible}`
         );
@@ -36,7 +35,7 @@ export class BrowserActions {
     */
     public waitForElementToBeClickable(elementToWait: ElementFinder) {
         return browser.wait(
-            protractor.ExpectedConditions.elementToBeClickable(elementToWait),
+            ExpectedConditions.elementToBeClickable(elementToWait),
             this.globalWait,
             `${this.globalWait} ${this.waitMessageClickable}`
         );
@@ -124,6 +123,50 @@ export class BrowserActions {
                             }
                         });
                 });
+            });
+        });
+    }
+
+    /**
+     * clickOn - waits for the element to be clickable as per configured ms and clicks on it
+     * @params
+     * element: ElementFinder
+     * @return
+     * promise.Promise<boolean>
+     *
+     */
+    public clickOn(element: ElementFinder) {
+        return new Promise((resolve) => {
+            this.waitForElementToBeClickable(element).then(() => {
+                element.click().then(() => {
+                    resolve(true);
+                }).catch((err) => {
+                    Logger.error(`Unable to perform clickOn ${err}`);
+                    resolve(false);
+                });
+            });
+        });
+    }
+    
+    /**
+     * mClickOn - waits for the element to be clickable as per configured ms, scrolls to it and clicks on it
+     * @params
+     * element: ElementFinder
+     * @return
+     * promise.Promise<boolean>
+     *
+    */
+    public mClickOn(element: ElementFinder) {
+        return new Promise((resolve) => {
+            this.waitForElementToBeClickable(element).then(() => {
+                this.scrollToElement(element).then(() => {
+                    element.click().then(() => {
+                        resolve(true);
+                    }).catch((err) => {
+                        Logger.error(`Unable to perform clickOn ${err}`);
+                        resolve(false);
+                    })
+                })
             });
         });
     }
